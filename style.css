@@ -1,0 +1,26 @@
+body {
+	background-color: black;
+	color: white;
+}
+.circle {
+    --circle-size: 10vw;
+  
+    position: fixed;
+    width: var(--circle-size);
+    height: var(--circle-size);
+    border-radius: 50%;
+    pointer-events: none;
+    top: calc(var(--circle-size) / 2 * -1);
+    left: calc(var(--circle-size) / 2 * -1);
+  
+    background: radial-gradient(
+      circle,
+      rgba(0, 255, 255, 0.8) 0%,     
+      rgba(0, 128, 255, 0.6) 20%,    
+      rgba(0, 0, 255, 0.3) 40%,      
+      rgba(0, 0, 255, 0) 60%         
+    );
+    
+    filter: blur(30px);
+  }
+
