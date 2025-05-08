@@ -2,31 +2,37 @@
 <html>
 <head>
     <title>A Flask App</title>
-	 <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-	 <div class='circle'></div>
-	 <div class='container'>
-	 <h1>Welke map wilt u ordenen?</h1>
-    <form method="POST">
-        <input name="map_input">
-        <input type="submit">
-    </form>
+    <div class='circle'></div>
+    <div class='container'>
+        <h1>Welke map wilt u ordenen?</h1>
+        <form method="POST">
+            <input name="map_input" placeholder="Bijv. C:/Users/Jij/Documents">
+            <input type="submit" value="Verstuur">
+        </form>
 
+        {% if mapExists == False %}
+            <p>De map die u ingediend heeft bestaat niet ({{ map_check }}). Vul een andere map in.</p>
+        {% elif mapExists == True and map_check %}
+            <p>De map die u wilt ordenen is dus: {{ map_check }}</p>
+            <form method="POST">
+                <input type="hidden" name="map_input" value="{{ map_check }}">
+                <button type="submit" value="yes" name="action">Ja</button>
+                <button type="submit" value="no" name="action">Nee</button>
+            </form>
+        {% endif %}
 
-	 {% if mapExists %}
-	 	  <p>De map die u ingedient heeft bestaat niet ({{map_check}}. Vul een andere map in</p>
-	 {% endif %}
-	
-    {% if map_check %}
-        <p>De map die u wilt ordenen is dus: {{ map_check }}</p>
-	 <form method="POST">
-		 <button type="submit" value="yes" name="action">Ja</button>
-		 <button type="submit" value="no" name="action">Nee</button>
-	 </form>
-    {% endif %}
+        {% if message %}
+            <p>{{ message }}</p>
+        {% endif %}
 
-	 <script src="{{ url_for('static', filename='script.js') }}"></script>
-	 </div>
+        {% if result %}
+            <p>{{ result }}</p>
+        {% endif %}
+
+        <script src="{{ url_for('static', filename='script.js') }}"></script>
+    </div>
 </body>
 </html>
