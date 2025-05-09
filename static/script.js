@@ -40,3 +40,21 @@ const tick = () => {
 }
 
 tick();
+
+//________________________________________________________________________________________________//
+
+const howSort = document.getElementById("typeSorting")
+const byTime = document.getElementById("timeSortingWrapper")
+
+function showHowSort() {
+    if (howSort.value === "byTime") {
+        byTime.classList.remove("hide");
+        byTime.classList.add("show");
+    } else {
+        byTime.classList.remove("show");
+        byTime.classList.add("hide");
+    }
+}
+
+howSort.addEventListener("change", showHowSort);
+showHowSort()
