@@ -26,10 +26,10 @@ def name_exists(name, extension, count):
 
 #______________________________________________________________________________________________________________________________#
 
-def organize_files(map):
-    files = sorted(os.listdir())
-
+def sort_extension(map):
     os.chdir(map)
+    files = sorted(os.listdir())
+    
     Path("images").mkdir(exist_ok=True)
     Path("else").mkdir(exist_ok=True)
 
@@ -56,12 +56,7 @@ def organize_files(map):
 
 #______________________________________________________________________________________________________________________________#
 
-def check_ifexist(map_path): 
-    return os.path.exists(map_path)
-
-#______________________________________________________________________________________________________________________________#
-
-def sortByMetadata(): #Create a function to call later copied from test folder
+def sort_metadata(): #Create a function to call later copied from test folder
     files = sorted(os.listdir())
 
     for file in files:
@@ -77,13 +72,34 @@ def sortByMetadata(): #Create a function to call later copied from test folder
 
 #______________________________________________________________________________________________________________________________#
 
-def sortByTimelastchanged():
-    files = sorted(os.listdir())
-
+def type_time_sorting():
     sortByYear = False
     sortByMonth = False
     sortByDay = False
 
+    if request.method == "POST":
+        value = request.form.get("timeSorting")
+            
+        if value == 'sortByYear':
+            sortByYear = True
+            sortByMonth = False
+            sortByDay = False
+        elif value == 'sortByMonth':
+            sortByYear = False
+            sortByMonth = True
+            sortByDay = False
+        elif value == 'sortByDay':
+            sortByYear = False
+            sortByMonth = False
+            sortByDay = True
+    return sortByDay, sortByMonth, sortByYear
+
+#______________________________________________________________________________________________________________________________#
+
+def sort_mod_time(map): 
+    os.chdir(map)
+    
+    files = sorted(os.listdir())
     messageSorting = ""
     
     for file in files:
@@ -121,37 +137,100 @@ def sortByTimelastchanged():
 
 #______________________________________________________________________________________________________________________________#
 
+def get_check_map():
+    message = ""
+    currentMap = request.form.get('map_input')
+    mapExists = False
+    
+    if currentMap:
+        mapExists = os.path.exists(currentMap)
+        if mapExists:
+            message="Er is een map gevonden"
+        elif mapExists == False:
+            message="Geen geldige map"
+    print(f"current map: {currentMap}")
+    print(f"map exists: {mapExists}")
+    print(f"message: {message}")
+    return currentMap, mapExists, message
+
+#______________________________________________________________________________________________________________________________#
+
+def check_choice_map():
+    value = None
+    action = None
+    if request.method == "POST":
+        value = request.form.get("action")
+        print(f" value: {value}")
+        if value == 'yes':
+            action = True
+        else:
+            action = False
+        
+    return action
+
+#______________________________________________________________________________________________________________________________#
+
+def type_sorting():
+    sortByExtension = False
+    sortByModTime = False
+    type = ""
+    if request.method == "POST":
+        type = request.form.get('typeSorting')
+        if type == 'byExt':
+            sortByExtension = True
+            sortByModTime = False
+        elif type == 'byTime':
+            sortByExtension = False
+            sortByModTime = True
+    return sortByExtension, sortByModTime, type
+        
+#______________________________________________________________________________________________________________________________#
+
+
+
 app = Flask(__name__)
 @app.route('/', methods=['GET', 'POST'])
 
 
 def my_form():
-    result = None
-    message = ""
-    map_check = None
+    value = None
     mapExists = None
+    currentMap = None
+    message = None
+    sortByExtension, sortByModtime, valueTypeSorting = type_sorting()
 
-    if request.method == 'POST':
-        cwd_map = request.form['map_input']
-        map_check = cwd_map
-        mapExists = check_ifexist(cwd_map)
-        action = request.form.get('action')
+    if sortByExtension:
+        print("sort by ext")
+        currentMap, mapExists, message = get_check_map()
 
-        if mapExists:
-            if action == 'yes':
-                result = organize_files(cwd_map)
-                message = "De map bestaat en is geordend!" if result else "Er is iets misgegaan bij het ordenen."
-            elif action == 'no':
-                message = "Vul een nieuwe map in om te ordenen"
-        else:
-            message = "De map bestaat niet. Vul een andere map in."
+        print(f"De map die je hebt ingevuld is: {currentMap}")
+
+        if currentMap != None and mapExists == True:
+            actionCheckChoice = check_choice_map()
+            if actionCheckChoice == True:
+                message = sort_extension(currentMap)
+            elif actionCheckChoice == False:
+                message = "Vul een nieuwe map in"
+
+
+    elif sortByModtime:
+        print("sort by time")
+        sortByDay, sortByMonth, sortByYear = type_time_sorting()
+        print(sortByDay)
+        print(sortByMonth)
+        print(sortByYear)
+        if sortByDay != None or sortByMonth != None or sortByYear != None:
+            check_choice_map()
+        
+    
+    
 
     return render_template(
         'flask_web.html',
-        result=result,
-        message=message,
-        mapExists=mapExists,
-        map_check=map_check
+        value = valueTypeSorting,
+        mapExists = mapExists,
+        currentMap = currentMap,
+        message = message
     )
 
 if __name__ == '__main__':
