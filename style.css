@@ -1,0 +1,231 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+
+}
+body {
+    background: linear-gradient(to right, rgb(36 36 36), rgb(100 100 100));
+    
+}
+.outerwrapper {
+    width: 100vw;
+    height: 100vh;
+    padding: 2vh;
+}
+.logo {
+    width: auto;
+    height: 15vh;
+    border-radius: 2dvb;
+}
+.iconbutton {
+    float: right;
+    
+    background-color: transparent;
+    border: none;
+    padding: 0 0 0 2%;
+}
+.icon {
+    width: auto;
+    height: 7vh;
+}
+
+.innerwrapper {
+    height: 63vh;
+    width: 80vw;
+    margin: auto;
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+.title {
+    font-size: 13.3vh;
+    color: white;
+    font-family: 'Staatliches';
+
+    position: relative;
+
+}
+
+.boxes {
+    position: absolute;
+    display: flex;
+    bottom: 0;
+    left: 0;
+    width: 80vw;
+    height: 15vh;
+    justify-content: space-between;
+    padding: 1vh 0 1vh 0;
+}
+.infobox {
+    position: relative;
+    border: solid white 1px;
+    width: 33vw;
+    text-align: center;
+    color: white;
+    display: flex;
+    align-items: center;
+}
+.infobox p {
+    font-size: 2vh;
+}
+.downloadbox {
+    position: relative;
+    border: solid white 1px;
+    width: 33vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;    
+}
+.downloadredirect {
+    text-decoration: none;
+    font-family: "Staatliches";
+    font-size: 3vh;
+    color: black;
+    background-color: white;
+    width: 50%;
+    height: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5vh;
+    font-weight: bold;
+}
+
+.downloadboxes {
+    display: flex;
+    justify-content: space-around;
+    width: 80vw;
+}
+.windows {
+    text-align: center;
+    padding: 2vh;
+}
+.linux {
+    text-align: center;
+    padding: 2vh;
+}
+.semititle {
+    color: white;
+}
+.buttondownload {
+    background-color: transparent;
+}
+.downloadicon {
+    position: relative;
+    height: 30vh;
+    width: auto;
+    padding: 5vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+}
+.downloadicon::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: radial-gradient(gray, rgb(48, 48, 48));
+    border-radius: 25px;
+    z-index: -1;
+    filter: blur(2px)
+}
+.downloadiconimg {
+    height: 20vh;
+    width: auto;
+}
+
+#innerwrapper2 {
+    margin-top: 20vh;
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+}
+.text {
+    font-size: 1.1vw;
+    color: white;
+    width: 35vw
+}
+.imagesswipe {
+    height: 63vh;
+}
+
+.contactform {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 80vw;
+    text-align: center;
+}
+.name {
+    width: 60vw;
+    height: 5vh;
+    color: white;
+    background-color: gray;
+    border-radius: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 1vh 0 0 0;
+    padding: 1vh;
+}
+.mail {
+    width: 60vw;
+    height: 5vh;
+    color: white;
+    background-color: gray;
+    border-radius: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 1vh 0 0 0;
+    padding: 1vh;
+
+}
+.subject {
+    width: 60vw;
+    height: 5vh;
+    color: white;
+    background-color: gray;
+    border-radius: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 1vh 0 0 0;
+    padding: 1vh;
+
+}
+.message {
+    width: 60vw;
+    height: 40vh;
+    color: white;
+    background-color: gray;
+    border-radius: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 1vh 0 0 0;
+    padding: 1vh;
+
+}
+.send {
+    width: 30vw;
+    height: 5vh;
+    color: white;
+    background-color: gray;
+    border-radius: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    margin-top: 1vh;
+}
+input::placeholder {
+    color: white;
+    opacity: 1;
+    text-align: center;
+    font-family: 'Staatliches';
+}
